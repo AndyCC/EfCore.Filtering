@@ -85,7 +85,8 @@ A query could look something like, only the required parts of the filter need to
                  "Path": "Shop.Id",
                  "ComparisonOperator": "gte",
                  "Value": 1
-             }]
+             }],
+           "RuleSets": null
       },
       "Ordering": [{
             "Path": "Id",
@@ -100,11 +101,23 @@ A query could look something like, only the required parts of the filter need to
       }]
 }      
 ```
+
+*Skip* and *Take* relate to the Skip and Take methods in EF Core.
+
+The *WhereClause* is a Ruleset. A RuleSet contains a `LogicalOperator` which can be `AND` or `OR` and is used to combine the rules and sub-rulesets together. An array of `Rules` which define which properties to query against (`Path`), how (`ComparisonOperator`) and against what value (`Value`), and an array of `RuleSets`. Each `RuleSet` in the array of `RuleSets` takes the same form as the WhereClause, which is a RuleSet. 
+      
+The nesting of rulesets allow for complex combinations such as `A AND B AND (C OR D)` or `A OR B OR (C AND D)` or `(A OR B) AND (C OR D)`
+
+A where clause must have at least 1 rule or a ruleset defined. See the Comparison Rules section below for more specifics on the rules that are available.
+      
+*Ordering* contains a list of order bys. These are defined by a `Path` and a direction (`Order`). The `Order` can be asc or desc. The order bys are added to the query in the same order that they appear in the Filter json.
+      
+*Includes* these are array of Paths and Filters which define the required includes. If adding an include only the `Path` to the required association is required, a `Filter` can also be added, this filter takes the same form as the Filter defined above.
       
 #### Short Form Json
 
 ### Pure Query String
-
+   
 ### Comparison Rules
 
       
