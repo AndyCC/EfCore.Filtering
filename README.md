@@ -175,7 +175,33 @@ This json will create a query against shop:
 }          
 ```
 
+This could be compressed to the following url
+      
+`GET` `myapi/Shop?filter={"O":["Id"],"W":{"L":"O","R":[{"P":"Name","C":"eq","V":"Everythings 10 Shop"}],"S":[{"L":"A","R":[{"P":"ProductListings.Price","C":"gt","V":14},{"P":"ShippingRegions.Region","C":"in","V":["UK","EU"]}]}]},"I":[{"P":"ProductListings", "F":{"T":1,"S":1}}]}`
+      
 #### Pure Query String
+      
+The pure query string is based on the short form json, in order to keep the query string small. So the same rule around property names and ordering and logical operators apply. The pure query string does not require a filter parameter as the parameters are the shortened names of the properties in the Filter.
+ 
+The short form json example from above, written as a query string would be as follows. The example is split across multiple lines for readability.
+ 
+```
+myapi/Shop?O[0]=Id
+      &W.L=O
+      &W.R[0].P=Name
+      &W.R[0].C=eq
+      &W.R[0].V=Everythings%2010%20Shop
+      &W.S[0].L=A
+      &W.S[0].R[0].P=ProductListings.Price
+      &W.S[0].R[0].C=gt
+      &W.S[0].R[0].V=14
+      &W.S[0].R[1].P=ShippingRegions.Region
+      &W.S[0].R[1].C=in
+      &W.S[0].R[1].V=[UK,EU]
+      &I[0].P=ProductListings
+      &I[0].F.T=1
+      &I[0].F.S=1 
+```
    
 ### Comparison Rules
 
