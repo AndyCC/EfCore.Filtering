@@ -203,16 +203,54 @@ myapi/Shop?O[0]=Id
       &I[0].F.S=1 
 ```
    
-### Comparison Rules
+### Default Rules
+
+The following comparison rules are provided. Comparison operators are not case sensitive
+
+Comparison Operator | Definition
+--------------------|------------
+in | equivelant to SQL IN statement, expected value to be an array.
+like | equivalent to SQL LIKE statement, expected value to be a string. Any wildcards must be supplied in the rule's value.
+eq | SQL = 
+equals | SQL =
+ne | SQL <> 
+notEqual | SQL <>
+ge | SQL > 
+greaterThan | SQL >
+gte | SQL >= 
+greaterThanOrEqual | SQL >=
+lt | SQL < 
+lessThan | SQL <
+lte | SQL <= 
+lessThanOrEqual | SQL <=
+      
+An example of a long and short formed json rule:
+```json
+{
+   "Path": "Product.Name",
+   "ComparisonOperator": "eq",
+   "Value": "Cat Dispenser"
+}
+```
+```json
+{
+   "P": "Product.Name",
+   "C": "eq",
+   "V": "Cat Dispenser"
+}
+```
 
       
 ## Extensibility
 
 ### Rules
+      To be written
 
 ### Parts
-
+      To be written
+      
 ### Misc
+       To be written
 
 ## Projects
 
