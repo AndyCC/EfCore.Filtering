@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Company>Andrew Cryer</Company>
+    <Copyright>Andrew Cryer</Copyright>
+    <Description>Builds an Entity Framework Core query from a filter object. Core Library.</Description>
+    <PackageProjectUrl>https://github.com/AndyCC/EfCore.Filtering</PackageProjectUrl>
+    <PackageTags>EntityFrameworkCore, EFCore, Entity Framework Core, EF Core, Filter, Filtering, Query, Querying</PackageTags>
+    <Authors>Andrew Cryer</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

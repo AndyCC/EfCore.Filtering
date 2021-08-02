@@ -37,15 +37,15 @@ namespace ExampleApi
                
             });
 
-            services.AddControllers(opts =>
-            {
-                opts.ModelBinderProviders.Insert(0, new FilterModelBinderProvider());
-            }).AddJsonOptions(opts => opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExampleApi", Version = "v1" });
             });
+
+            services.AddControllers(opts =>
+            {
+                opts.ModelBinderProviders.Insert(0, new FilterModelBinderProvider());
+            }).AddJsonOptions(opts => opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddQueryBuilder();
 

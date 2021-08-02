@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>Andrew Cryer</Authors>
+    <Description>Builds an Entity Framework Core query from a filter object. Provides everything required to setup api endpoints to take a filter and then use the filter to build a query for use on an Entity Framework Core database context.</Description>
+    <PackageTags>EntityFrameworkCore, EFCore, Entity Framework Core, EF Core, Filter, Filtering, Query, Querying, WebApi, MVC</PackageTags>
+    <PackageProjectUrl>https://github.com/AndyCC/EfCore.Filtering</PackageProjectUrl>
+    <Copyright>Andrew Cryer</Copyright>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
