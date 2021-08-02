@@ -209,8 +209,8 @@ The following comparison rules are provided. Comparison operators are not case s
 
 Comparison Operator | Definition
 --------------------|------------
-in | equivelant to SQL IN statement, expected value to be an array.
-like | equivalent to SQL LIKE statement, expected value to be a string. Any wildcards must be supplied in the rule's value.
+in | equivelant to SQL IN statement, expects rule value to be an array.
+like | equivalent to SQL LIKE statement, expects rule value to be a string. Any wildcards must be supplied in the rule's value.
 eq | SQL = 
 equals | SQL =
 ne | SQL <> 
