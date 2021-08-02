@@ -69,7 +69,7 @@ When using json with a GET method then the parameter must be called `filter`.
 
 Long form json isn't suitable for querystrings, due to size limitations of querystrings. 
 
-A query could look something like, only the required parts of the filter need to be supplied:
+A filter could look something like, only the required parts of the filter need to be supplied:
       
 ```json
 {
