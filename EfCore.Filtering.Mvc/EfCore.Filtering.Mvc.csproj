@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -11,7 +11,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>EfCore.Filtering</Product>
-    <PackageId>EfCore.Filtering</PackageId>
+    <PackageId>EfCore.Filtering.Mvc</PackageId>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +21,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EfCore.Filtering.Client\EfCore.Filtering.Client.csproj" />
-    <ProjectReference Include="..\EfCore.Filtering\EfCore.Filtering.csproj" />
+    <ProjectReference Include="..\EfCore.Filtering.Client\EfCore.Filtering.Client.csproj">
+       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+       <IncludeAssets>EfCore.Filtering.Client.dll</IncludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\EfCore.Filtering\EfCore.Filtering.csproj">
+       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+       <IncludeAssets>EfCore.Filtering.dll</IncludeAssets>
+    </ProjectReference>
   </ItemGroup>
-
+  <Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
 </Project>
