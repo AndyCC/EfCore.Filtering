@@ -116,7 +116,66 @@ A where clause must have at least 1 rule or a ruleset defined. See the Compariso
       
 #### Short Form Json
 
-### Pure Query String
+The short form json is for use in query strings to reduce the size of the query string to acceptable lengths. Therefore remove any whitespace from the json, if using this method.
+      
+The short form json is basically the same structure as the long form json, but the property names are only 1 letter long on the filter object. So the property `Path` becomes `P`. In addition to this the Ordering becomes a list of strings where `My.Path` will order by `My.Path` in ascending order and `-My.Path` will order by descending. The `LogicalOperator` in the where clause can be sepecied with `O` for `OR` or `A` for `AND`.
+      
+And example of short form json:
+      
+This json is run against `Shop` in the ExampleApi. 
+This json will create a query against shop:
+  * Order by Id ascending
+  * Select shops where the name is equal to "Everythings 10 Shop" OR ( the shop has a ProductListing with a price greater the 14 AND the Shop has a Shipping Region of EU or UK )
+  * The query will include ProductListings taking the second ProductListing returned, due to the Skip 1, Take 1 on the include.    
+      
+```json
+{
+  "O": [
+    "Id"
+  ],
+  "W": {
+    "L": "O",
+    "R": [
+      {
+        "P": "Name",
+        "C": "eq",
+        "V": "Everythings 10 Shop"
+      }
+    ],
+    "S": [
+      {
+        "L": "A",
+        "R": [
+          {
+            "P": "ProductListings.Price",
+            "C": "gt",
+            "V": 14
+          },
+          {
+            "P": "ShippingRegions.Region",
+            "C": "in",
+            "V": [
+              "UK",
+              "EU"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "I": [
+    {
+      "P": "ProductListings",
+      "F": {
+        "T": 1,
+        "S": 1
+      }
+    }
+  ]
+}          
+```
+
+#### Pure Query String
    
 ### Comparison Rules
 
