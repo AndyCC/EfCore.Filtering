@@ -21,7 +21,7 @@ services.AddControllers(opts =>
  Also add the QueryBuilder to the service collection. The default method below will create an instance of the QueryBuilder and add it as a singleton. This method has various options to override the default build and setup of the QueryBuilder.
  
  ```c#
-       services.AddQueryBuilder();
+services.AddQueryBuilder();
  ```
  
  Inject `IQueryBuilder` into the required controller and add methods to send a filter to the api and get a response such as:
@@ -59,15 +59,55 @@ If the model binding fails it will add errors to the ModelState.
  
 In the ExampleApi controller there is a handy base class. 
  
+### The Filter
+      
+When using json with a GET method then the parameter must be called `filter`.
 
-### Model Binding
+**Paths** are navigation paths which state how to reach a property which is to be ordered or queries on or included. Given a class `Product` if I wanted to say order on Id the path would just be `Id`. The Filter<T> definition in the filter method defines the source entity type and the navigation paths proceed from there. If `Product` has a series of `ShopProductListings` defining which `Shop`s the product was sold from and I wanted to order by the shop name when querying `Product` then the path would be `ShopProductListings.Shop.Name`  
+ 
+#### Long Form Json & Filter Structure
 
-### Controllers
+Long form json isn't suitable for querystrings, due to size limitations of querystrings. 
 
-### GET method - Query Strings
+A query could look something like, only the required parts of the filter need to be supplied:
+      
+```json
+{
+      "Skip": 1,
+      "Take": 2,
+      "WhereClause": {
+          "LogicalOperator": "AND",
+          "Rules": [{
+                 "Path": "Product.Name",
+                 "ComparisonOperator": "eq",
+                 "Value": "Cat Dispenser"
+             }, {
+                 "Path": "Shop.Id",
+                 "ComparisonOperator": "gte",
+                 "Value": 1
+             }]
+      },
+      "Ordering": [{
+            "Path": "Id",
+            "Order": "asc"
+      }],
+      "Includes": [{
+          "Path": "Product",
+          "Filter": null
+      },{
+          "Path": "Shop",
+          "Filter": null
+      }]
+}      
+```
+      
+#### Short Form Json
 
-### POST method - Body
+### Pure Query String
 
+### Comparison Rules
+
+      
 ## Extensibility
 
 ### Rules
