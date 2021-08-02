@@ -54,7 +54,7 @@ public async Task<IActionResult> Get([FromQuery] Filter<Product> filter)
 
  ```
  
-You MUST use Filter<T> in the query endpoints, where T is the entity to which the filter will be applied. This is to assist with the model binding of the filter.
+You MUST use Filter\<T\> in the query endpoints, where T is the entity to which the filter will be applied. This is to assist with the model binding of the filter.
 If the model binding fails it will add errors to the ModelState.
  
 In the ExampleApi controller there is a handy base class. 
