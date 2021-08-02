@@ -181,7 +181,7 @@ This could be compressed to the following url
       
 #### Pure Query String
       
-The pure query string is based on the short form json, in order to keep the query string small. So the same rule around property names and ordering and logical operators apply. The pure query string does not require a filter parameter as the parameters are the shortened names of the properties in the Filter.
+The pure query string is based on the short form json, in order to keep the query string small. So the same rule around property names and ordering and logical operators apply. In addition an array of values in a rule will start with a `[` and end with a `]`. 
  
 The short form json example from above, written as a query string would be as follows. The example is split across multiple lines for readability.
  
