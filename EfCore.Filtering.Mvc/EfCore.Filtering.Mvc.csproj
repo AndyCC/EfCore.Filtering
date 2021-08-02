@@ -9,6 +9,9 @@
     <Copyright>Andrew Cryer</Copyright>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Product>EfCore.Filtering</Product>
+    <PackageId>EfCore.Filtering</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

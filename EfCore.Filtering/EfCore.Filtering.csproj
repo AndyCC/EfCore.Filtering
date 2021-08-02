@@ -9,6 +9,8 @@
     <PackageTags>EntityFrameworkCore, EFCore, Entity Framework Core, EF Core, Filter, Filtering, Query, Querying</PackageTags>
     <Authors>Andrew Cryer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
