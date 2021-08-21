@@ -1,11 +1,8 @@
 ﻿using EfCore.Filtering.Client;
 using EfCore.Filtering.Paths;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EfCore.Filtering.RuleSets.Rules
 {

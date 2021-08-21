@@ -115,7 +115,7 @@ namespace EfCore.Filtering.ServiceBuilder
         /// Specifies the RuleSetExpressionBuilder used should be RuleSetExpressionBuilder
         /// </summary>
         /// <returns>QueryBuilderOptionsBuilder</returns>
-        public QueryBuilderOptionsBuilder UseDefaulRuleSetExpressionBuilder()
+        public QueryBuilderOptionsBuilder UseDefaultRuleSetExpressionBuilder()
         {
             _ruleSetExpressionBuilderType = typeof(RuleSetExpressionBuilder);
 
@@ -150,7 +150,7 @@ namespace EfCore.Filtering.ServiceBuilder
               .UseDefaultOrderBy()
               .UseDefaultIncludePart(includeOptions)
               .UseDefaultWherePart()
-              .UseDefaulRuleSetExpressionBuilder()
+              .UseDefaultRuleSetExpressionBuilder()
               .UseRuleBuilders(ruleExpressionOptions);
         }
 
