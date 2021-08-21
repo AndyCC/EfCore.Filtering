@@ -360,12 +360,130 @@ services.AddQueryBuilder(opts =>
 })
 ```
 
-### Parts
-      To be written
-      
-### Misc
-       To be written
+### Builder Parts
+Builder parts implement a _part_ of a query. For example the current builder parts include `skip`, `take`, `include`, `where` and `orderby`. It is possible to add new parts or replace existing ones.
 
+There are 2 interfaces to consider implementing when creating a part. `IBuilderPart` and `IIncludeFilteringPart`, the two interfaces appear very similar however define where the part can be used. `IBuilderPart` is used in the main query and `IIncludeFilteringPart` states how to create the part when used within the `Include` part as in EF.Core Includes can contain their own queries. In the code base you'll often see these implemented together as the logic to create the part is the same with the exception that the main query construction requires expressions to be built that use IQueryable and the _include_ query requries expressions to be built that use IEnumerable.
+
+The interfaces are defined as:
+
+```c#
+/// <summary>
+///  Builds an expression tree to represent logic to be built by the QueryBuilder
+/// </summary>
+public interface IBuilderPart
+{
+    /// <summary>
+    /// determines when part will be executed. Lower numbers execute first
+    /// </summary>
+    public int ExecutionOrder { get; set; }
+
+    /// <summary>
+    /// Builds part of an expression
+    /// </summary>
+    /// <param name="context">BuilderContext</param>
+    /// <returns>updated expression</returns>
+    public Expression BuildExpression(BuilderContext context);
+}
+```
+
+```c#
+/// <summary>
+/// Builds an expression tree to represent logic to be included in the QueryBuilder's Include part. 
+/// </summary>
+public interface IIncludeFilteringPart
+{
+    /// <summary>
+    /// determines when part will be executed. Lower numbers execute first
+    /// </summary>
+    public int ExecutionOrder { get; set; }
+
+    /// <summary>
+    /// Builds part of an expression for an include's filter
+    /// </summary>
+    /// <param name="context">BuilderContext</param>
+    /// <returns>updated expression</returns>
+    public Expression BuildIncludeExpression(BuilderContext context);
+}
+```
+
+**ExecutionOrder**
+This property defines the order in which the parts are to be executed when constructing the expression tree which will create the query. This value can be negative.
+
+Currently this is set as follows:
+
+Part | Order
+--------|------
+Where | 0
+Include | 500
+OrderBy | 1000
+Skip | 1500
+Take | 2000
+
+**BuildIncludeExpression**
+This method takes a BuilderContext and returns the expression that needs to be added to the expression tree which will create the query. The BuilderContext is defined as:
+
+```c#
+  /// <summary>
+    /// Context used for building the query
+    /// </summary>
+    public class BuilderContext
+    {
+        /// <summary>
+        /// The expression that has been built so far
+        /// </summary>        
+        public Expression CurrentExpression { get; set; }
+
+        /// <summary>
+        /// The filter being applied
+        /// </summary>
+        public Filter Filter { get;  set; }
+
+        /// <summary>
+        /// Source Entity Type for use with the Paths in the filter
+        /// </summary>
+        public Type SourceEntityType { get; set; }
+
+        /// <summary>
+        /// PathWalker containing details of all the paths in the filter
+        /// </summary>
+        public PathWalker PathWalker { get; internal set; }
+
+        /// <summary>
+        /// Determines if the context is valid or not
+        /// </summary>
+        /// <returns>true if valid</returns>
+        public bool IsValid()
+        {
+            return CurrentExpression != null &&
+                Filter != null &&
+                SourceEntityType != null;
+        }
+    }
+```
+
+The new expression must be build on top of or include the `CurrentExpression`
+The `Filter` is the full filter that has been passed into the QueryBuilder
+The `SourceEntityType` is the entity type the query is to be built against, and from which all rule paths originate. In the `IIncludeFilteringPart` the ``SourceEntityType` is the entity type that is included by an `Include`.
+The `PathWalker` contains all the paths declared in the filter, it validates them all and provides useful functions to access details about the paths.
+
+To add custom parts to the QueryBuilder then the whole QueryBuilder setup needs to be defined in `Startup.cs`. If using the default WherePart then a RuleSetExpressionBuilder also needs to be defined. To use the default implementation use `UseDefaultRuleSetExpressionBuilder` and `UseRuleBuilders`:
+
+```c#
+services.AddQueryBuilder(opts =>
+{
+   opts.UseDefaultWherePart()
+       .UseDefaultIncludePart()
+       .UseDefaultOrderBy()
+       .UseDefaultSkip()
+       .UseDefaultTake()
+       .UsePart(typeof(MyPart))
+       .UseDefaultRuleSetExpressionBuilder()
+       .UseRuleBuilders();
+});
+```
+
+      
 ## Projects
 
 ### EfCore.Filtering.Mvc
