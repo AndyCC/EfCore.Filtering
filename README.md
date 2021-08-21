@@ -243,8 +243,122 @@ An example of a long and short formed json rule:
       
 ## Extensibility
 
-### Rules
-      To be written
+### Rule Expression Builders
+A rule expression builder tells the QueryBuilder when and how to interpret a given rule type. To do this add a new rule type a rule builder must be implemented `IRuleExpressionBuilder`
+      
+IRuleExpressionBuilder has two methods that need to be implemented:
+ 
+ ```c#
+    public bool CanInterpretRule(Rule rule);
+    public Expression BuildRuleExpression(Rule rule, RuleBuilderContext context);
+ ```
+      
+ Classes used by these methods are the Rule and RuleBuilderContext.
+ Rule defines a rule that has been passed into the QueryBuilder:
+      
+```c#
+/// <summary>
+/// A filtering rule
+/// </summary>
+public class Rule
+{
+    /// <summary>
+    /// Object path from source entity to reach the property to evaluate
+    /// </summary>
+    public string Path { get; set; }
+
+    /// <summary>
+    /// Comparison operator for the rule
+    /// </summary>
+    public string ComparisonOperator { get; set; }
+
+    /// <summary>
+    /// Value to evaluate against
+    /// </summary>
+    public Object Value { get; set; }
+}
+```
+
+The RuleBuilderContext contains some useful items for use in building the rule. It is defined as:
+
+```c#
+/// <summary>
+/// Context used by a rule expression builder
+/// </summary>
+public class RuleBuilderContext
+{
+    /// <summary>
+    /// Ctor
+    /// </summary>
+    /// <param name="parameterExpression">parameter used to access for the source entity</param>
+    /// <param name="targetPropertyType">Type of the target property</param>
+    internal RuleBuilderContext(ParameterExpression parameterExpression, Type targetPropertyType)
+    {
+        ParameterExpression = parameterExpression;
+        TargetPropertyType = targetPropertyType;
+    }
+
+    /// <summary>
+    /// parameter used to access for the source entity
+    /// </summary>
+    public ParameterExpression ParameterExpression { get; private set; }
+
+    /// <summary>
+    /// Type of the target property
+    /// </summary>
+    public Type TargetPropertyType { get; private set; }
+}
+```
+
+The ParameterExpression an expression tree parameter which represents the source entity. The path in the rule passed into this method will exist on this entity.
+The TargetPropertyType is the type of the very last property in the path.
+      
+**CanInterpretRule**
+
+This method will evaluate the `Rule` object and determine if this builder can create an expression. If multiple builders can interpret the rule then the rule won't be interpreted, and a `RuleExpressionBuilderNotFoundException` will be thrown.
+
+**BuildRuleExpression**
+This method takes the rule and the context and creates an expression. The best way to show this is via an example, below is the `SimpleComparisonRuleBuilder`.
+
+In this example the method:
+1) Converts the path in the rule to be an expression
+2) Creates a constant expression value to compare against
+3) Evaluates the comparson operator and returns an expression to perform the required comparison.
+
+```c#
+public Expression BuildRuleExpression(Rule rule, RuleBuilderContext context)
+{
+    if (context == null)
+        throw new ArgumentNullException(nameof(context));
+
+    var propertyPathExpression = PropertyPath.AsPropertyExpression(rule.Path, context.ParameterExpression);
+    var constantExpression = Expression.Constant(rule.Value);
+
+    return rule.ComparisonOperator.ToLower() switch
+    {
+        "equal" or "eq" => Expression.Equal(propertyPathExpression, constantExpression),
+        "notequal" or "ne" => Expression.NotEqual(propertyPathExpression, constantExpression),
+        "greaterthan" or "gt" => Expression.GreaterThan(propertyPathExpression, constantExpression),
+        "greaterthanorequal" or "gte" => Expression.GreaterThanOrEqual(propertyPathExpression, constantExpression),
+        "lessthan" or "lt" => Expression.LessThan(propertyPathExpression, constantExpression),
+        "lessthanorequal" or "lte" => Expression.LessThanOrEqual(propertyPathExpression, constantExpression),
+        _ => throw new NotImplementedException($"Comparison operator {rule.ComparisonOperator} not implemented"),
+   };
+}
+```
+
+To add the rule to the query builder, it needs to be added to the list of `RuleExpressionBuilder`s in `StartUp.cs`. In this example the default rule expression builders are added before the new builder. Currently the default rule expression builders are listed above in the default rules and are implemented by 3 classes: `InRuleBuilder`, `LikeRuleBuilder` and `SimpleComparisonRuleBuilder`
+
+```c#
+services.AddQueryBuilder(opts =>
+{
+    opts.UseDefault(ruleExpressionOptions: ruleOpts =>
+    {
+       ruleOpts.UseDefault()
+                .UseRuleExpressionBuilder(typeof(MyNewRuleExpressionVBuilder));
+    });
+})
+```
 
 ### Parts
       To be written
