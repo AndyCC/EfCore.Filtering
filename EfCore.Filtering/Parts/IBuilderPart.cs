@@ -3,7 +3,7 @@
 namespace EfCore.Filtering.Parts
 {
     /// <summary>
-    /// Logic to be included in the QueryBuilder
+    ///  Builds an expression tree to represent logic to be built by the QueryBuilder
     /// </summary>
     public interface IBuilderPart
     {

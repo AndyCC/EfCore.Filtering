@@ -3,7 +3,7 @@
 namespace EfCore.Filtering.Parts
 {
     /// <summary>
-    /// Logic to be included in the QueryBuilder's Include part to build filteering within an include
+    /// Builds an expression tree to represent logic to be included in the QueryBuilder's Include part. 
     /// </summary>
     public interface IIncludeFilteringPart
     {
