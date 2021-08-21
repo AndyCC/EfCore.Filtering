@@ -408,6 +408,7 @@ public interface IIncludeFilteringPart
 ```
 
 **ExecutionOrder**
+
 This property defines the order in which the parts are to be executed when constructing the expression tree which will create the query. This value can be negative.
 
 Currently this is set as follows:
@@ -421,6 +422,7 @@ Skip | 1500
 Take | 2000
 
 **BuildIncludeExpression**
+
 This method takes a BuilderContext and returns the expression that needs to be added to the expression tree which will create the query. The BuilderContext is defined as:
 
 ```c#
@@ -483,6 +485,26 @@ services.AddQueryBuilder(opts =>
 });
 ```
 
+
+### RuleSetExpressionBuilder
+The `RuleSetExpressionBuilder` used by the default where clause can be replaced by implementing `IRuleSetExpressionBuilder`.
+
+`Startup.cs` must also by updated to specify the new RuleSetExpressionBuilder. 
+
+```c#
+services.AddQueryBuilder(opts =>
+{
+    opts.UseDefaultWherePart()
+        .UseDefaultIncludePart()
+        .UseDefaultOrderBy()
+        .UseDefaultSkip()
+        .UseDefaultTake()
+        .UseRuleSetExpressionBuilder(typeof(MyRuleSetExpressionBuilder))
+        .UseRuleBuilders();
+});
+```
+
+`UseRuleBuilders()` will only be required if your implementation of `IRuleSetExpressionBuilder` requires them.
       
 ## Projects
 
