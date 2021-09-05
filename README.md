@@ -1,6 +1,8 @@
 # EfCore.Filtering
 Builds Entity Framework Core queries from a common filter.
 
+nuget project: https://www.nuget.org/packages/EfCore.Filtering.Mvc/
+
 ## Overview
 
 Specify Skip, Take, Ordering, complex Where clauses and Includes and pass these through to an api endpoint to construct and execute queries against a database using Entity Framework Core.
