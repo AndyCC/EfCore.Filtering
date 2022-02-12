@@ -8,6 +8,8 @@ on:
     
 env:
   PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
+  CONFIGURATION: 'Release'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
 
 jobs:
  build_test_deploy:
