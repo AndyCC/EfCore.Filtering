@@ -9,7 +9,7 @@ env:
   TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
   CONFIGURATION: 'Release'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
-  NUGET_SOURCE_URL: 'https://api.nuget.org/v1/index.json'
+  NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
 jobs:
  build_test_deploy:
