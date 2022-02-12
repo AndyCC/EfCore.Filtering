@@ -7,7 +7,6 @@
     <PackageTags>EntityFrameworkCore, EFCore, Entity Framework Core, EF Core, Filter, Filtering, Query, Querying, WebApi, MVC</PackageTags>
     <PackageProjectUrl>https://github.com/AndyCC/EfCore.Filtering</PackageProjectUrl>
     <Copyright>Andrew Cryer</Copyright>
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Product>EfCore.Filtering</Product>
