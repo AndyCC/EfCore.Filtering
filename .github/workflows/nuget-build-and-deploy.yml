@@ -1,4 +1,4 @@
-name: nuget-build-and-deply
+name: nuget-build-and-deploy
 
 on:
  push:
