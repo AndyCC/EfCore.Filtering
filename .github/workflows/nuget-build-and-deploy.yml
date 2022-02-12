@@ -4,7 +4,7 @@ on:
   branches: 
     - main
   tags:
-    - 'v*'
+    - 'v**'
     
 env:
   SOLUTION_NAME: 'EFCore.Filtering.sln'
@@ -45,9 +45,6 @@ jobs:
     id: get_version
     uses: battila7/get-version-action@v2
     
-  - run: echo ${{ steps.get_version.outputs.version }}
-  - run: echo ${{ steps.get_version.outputs.version-without-v }}
-
   - name: 'Pack project'
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }} --include-symbols -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
