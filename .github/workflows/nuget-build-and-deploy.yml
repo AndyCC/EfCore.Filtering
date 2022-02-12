@@ -16,8 +16,6 @@ jobs:
   name: 'Build'
   runs-on: 'windows-latest'  
   steps:
-  
-  - run: echo "github ref  ${{ github.ref }}"
 
   - name: 'Checkout'
     uses: actions/checkout@v2

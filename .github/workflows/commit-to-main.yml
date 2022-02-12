@@ -1,0 +1,30 @@
+name: commit-to-main
+on:
+ push:
+   branches:
+   - master
+ pull_request:
+   branches:
+   - master
+
+ env:
+  TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
+
+  - name: 'Checkout'
+    uses: actions/checkout@v2
+
+  - name: 'Setup dot net 5 and 6'
+    uses: 'actions/setup-dotnet@v1'
+    with:
+     dotnet-version: |
+      5.x
+      6.x
+
+  - name: 'Restore packages'
+    run: dotnet restore ${{ env.TEST_PROJECT_PATH }}
+        
+  - name: Build Solution
+    run: dotnet build ${{ env.TEST_PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }}
+
+  - name: Tests
+    run: dotnet test ${{ env.TEST_PROJECT_PATH }} --no-build --no-restore
