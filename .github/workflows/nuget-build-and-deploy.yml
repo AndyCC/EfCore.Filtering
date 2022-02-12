@@ -4,7 +4,7 @@ on:
   branches: 
     - main
   tags:
-    - 'v*'
+    - '*'
     
 env:
   PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
@@ -43,5 +43,5 @@ jobs:
   - name: 'Pack project'
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration ${{ env.CONFIGURATION }} --include-symbols -p:PackageVersion=${{ steps.version.output.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
-  - name: 'Push package'
-    run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
+  #- name: 'Push package'
+  #  run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
