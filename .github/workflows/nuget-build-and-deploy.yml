@@ -2,7 +2,7 @@ name: nuget-build-and-deploy
 on:
  push:
   tags:
-    - v*
+    - '*'
     
 env:
   SOLUTION_NAME: 'EFCore.Filtering.sln'
