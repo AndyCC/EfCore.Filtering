@@ -2,10 +2,10 @@ name: commit-to-main
 on:
  push:
    branches:
-   - master
+   - main
  pull_request:
    branches:
-   - master
+   - main
    
 env:
   TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
