@@ -23,15 +23,15 @@ jobs:
   - name: 'Checkout'
     uses: actions/checkout@v2
 
-  - name: Set output
-    id: vars
-    run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-
-  - name: Check output
-    run: echo ${{ steps.vars.outputs.short_ref }}
+  - name: Get Branch
+    run: |
+     raw=$(git branch -r --contains ${{ github.ref }})
+     branch=${raw/origin\/}
+     echo ::set-env name=BRANCH::$branch
+  - run: echo ${{ env.BRANCH }}
 
   - name: Exit if not on main branch
-    if: endsWith(github.ref, 'main') == false
+    if: env.BRANCH != 'main'
     run: exit -1
 
   - name: 'Setup dot net 5 and 6'
