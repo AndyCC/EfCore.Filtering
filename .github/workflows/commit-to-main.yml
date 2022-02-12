@@ -6,19 +6,22 @@ on:
  pull_request:
    branches:
    - master
-
- env:
+   
+env:
   TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
 
+jobs:
+ build_test:
+  name: 'Build'
+  runs-on: 'windows-latest'  
+  steps:
   - name: 'Checkout'
     uses: actions/checkout@v2
 
-  - name: 'Setup dot net 5 and 6'
+  - name: 'Setup dot 6'
     uses: 'actions/setup-dotnet@v1'
     with:
-     dotnet-version: |
-      5.x
-      6.x
+     dotnet-version: 6.x
 
   - name: 'Restore packages'
     run: dotnet restore ${{ env.TEST_PROJECT_PATH }}
