@@ -34,7 +34,7 @@ jobs:
     run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }}
 
   - name: Test
-    run: dotnet test Tests.EfCore.Filtering --no-build --no-restore
+    run: dotnet test Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj --no-build --no-restore
 
   - name: 'Get version'
     id: version
