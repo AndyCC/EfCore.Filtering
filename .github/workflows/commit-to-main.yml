@@ -9,6 +9,7 @@ on:
    
 env:
   TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
+  CONFIGURATION: 'Debug'
 
 jobs:
  build_test:
