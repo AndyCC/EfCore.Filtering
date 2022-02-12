@@ -36,9 +36,6 @@ jobs:
   - name: Tests
     run: dotnet test ${{ env.TEST_PROJECT_PATH }} --no-build --no-restore
 
-  - name: Build
-    run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }}
-
   - name: 'Get version'
     id: get_version
     uses: battila7/get-version-action@v2
