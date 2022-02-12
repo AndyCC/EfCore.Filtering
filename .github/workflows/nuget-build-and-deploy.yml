@@ -1,0 +1,48 @@
+name: nuget-build-and-deply
+
+on:
+ push:
+  branches: ["main"]
+  tags:
+   - 'v*'
+
+
+env:
+  PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
+  CONFIGURATION: 'Release'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  NUGET_SOURCE_URL: ''https://api.nuget.org/v1/index.json''
+
+jobs:
+  build:
+	name: 'Build'
+	runs-on: 'windows-latest'
+	steps:
+	- name: 'Checkout'
+	  uses: actions/checkout@v2
+	
+	- name: 'Setup dot net 5 and 6'
+	  uses: 'actions/setup-dotnet@v1'
+	  with:
+		dotnet-version: |
+			5.x
+			6.x
+	
+     - name: 'Restore packages'
+	   run: dotnet restore ${{ env.PROJECT_PATH }}
+
+	 - name: Build
+	   run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }}
+
+	 - name: Test
+	   run: dotnet test --no-restore --verbosity normal
+
+     - name: 'Get version'
+	   id: version
+	   uses: batilla7/get-version-action@v2
+
+	 - name: 'Pack project'
+	   run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration ${{ env.CONFIGURATION }} --include-symbols -p:PackageVersion=${{ steps.version.output.version-without -v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
+
+	   name: 'Push package'
+	   run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
