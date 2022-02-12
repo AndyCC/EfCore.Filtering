@@ -5,15 +5,14 @@ on:
     - main
   tags:
     - 'v*'
+    
+env:
+  PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
+
 jobs:
  build_test_deploy:
   name: 'Build'
   runs-on: 'windows-latest'  
-  env:
-   PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
-   CONFIGURATION: 'Release'
-   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
-   NUGET_SOURCE_URL: ''https://api.nuget.org/v1/index.json''
   steps:
   - name: 'Checkout'
     uses: actions/checkout@v2
