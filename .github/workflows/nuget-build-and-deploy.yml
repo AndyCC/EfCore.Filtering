@@ -1,8 +1,7 @@
 name: nuget-build-and-deploy
 on:
- push:
-  tags:
-    - '*'
+ release:
+  types: [published]
     
 env:
   SOLUTION_NAME: 'EFCore.Filtering.sln'
@@ -62,13 +61,4 @@ jobs:
 
   #- name: 'Push package'
   #  run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
-  
-  - name: Create Release
-    uses: actions/create-release@v1
-    env:
-     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-    with:
-     tag_name: ${{ steps.get_version.outputs.version }}
-     release_name: Release ${{ steps.get_version.outputs.version }}
-     draft: false
-     prerelease: false
+ 
