@@ -8,6 +8,7 @@ on:
     
 env:
   PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
+  TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
   CONFIGURATION: 'Release'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
   NUGET_SOURCE_URL: 'https://api.nuget.org/v1/index.json'
@@ -29,17 +30,20 @@ jobs:
       
   - name: 'Restore packages'
     run: dotnet restore ${{ env.PROJECT_PATH }}
+        
+  - name: Build Tests
+    run: dotnet build ${{ env.TEST_PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }}
+
+  #- name: Install NUnit.ConsoleRunner
+  #  run: nuget install NUnit.ConsoleRunner -Version 3.13.2 -DirectDownload -OutputDirectory .
+
+  #- name: Run UnitTests
+  #  run: ./NUnit.ConsoleRunner.3.13.2/tools/nunit3-console.exe Tests.EfCore.Filtering/bin/Release/net6.0/Tests.EfCore.Filtering.dlls
+  - name: Tests
+    run: dotnet test ${{ env.TEST_PROJECT_PATH }} --no-build --no-restore
 
   - name: Build
     run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }}
-
-  #- name: Test
-  #  run: dotnet test Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj --no-build --no-restore
-  - name: Install NUnit.ConsoleRunner
-    run: nuget install NUnit.ConsoleRunner -Version 3.13.2 -DirectDownload -OutputDirectory .
-
-  - name: Run UnitTests
-    run: ./NUnit.ConsoleRunner.3.13.2/tools/nunit3-console.exe Tests.EfCore.Filtering/bin/Release/net6.0/Tests.EfCore.Filtering.dll
 
   - name: 'Get version'
     id: version
