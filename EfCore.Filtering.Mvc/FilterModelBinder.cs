@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace EfCore.Filtering.Mvc
-{
+{ 
     /// <summary>
     /// ModelBinder for Filter<TEntity>
     /// Converts:
