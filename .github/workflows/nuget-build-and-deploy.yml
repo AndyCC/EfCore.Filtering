@@ -4,7 +4,7 @@ on:
   branches: 
     - main
   tags:
-    - '*'
+    - 'v*'
     
 env:
   PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
@@ -38,7 +38,7 @@ jobs:
 
   - name: 'Get version'
     id: version
-    uses: batilla7/get-version-action@v2
+    uses: battila7/get-version-action@v2
 
   - name: 'Pack project'
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration ${{ env.CONFIGURATION }} --include-symbols -p:PackageVersion=${{ steps.version.output.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
