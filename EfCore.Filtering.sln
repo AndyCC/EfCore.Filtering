@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Filtering", "EfCore.Filtering\EfCore.Filtering.csproj", "{3AAEB0FC-332E-4EC0-97D5-C10EA33EBCB0}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.EfCore.Filtering", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApi", "ExampleApi\ExampleApi.csproj", "{4A850DD7-3D31-4EB9-9410-0835EDAF45E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCore.Filtering.Mvc", "EfCore.Filtering.Mvc\EfCore.Filtering.Mvc.csproj", "{A6464160-22AC-4334-91C5-717E3615B458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCore.Filtering.Mvc", "EfCore.Filtering.Mvc\EfCore.Filtering.Mvc.csproj", "{712FD50D-D2DC-4A2C-AABB-B74BEA95336F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{4A850DD7-3D31-4EB9-9410-0835EDAF45E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A850DD7-3D31-4EB9-9410-0835EDAF45E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A850DD7-3D31-4EB9-9410-0835EDAF45E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6464160-22AC-4334-91C5-717E3615B458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6464160-22AC-4334-91C5-717E3615B458}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6464160-22AC-4334-91C5-717E3615B458}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6464160-22AC-4334-91C5-717E3615B458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712FD50D-D2DC-4A2C-AABB-B74BEA95336F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712FD50D-D2DC-4A2C-AABB-B74BEA95336F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712FD50D-D2DC-4A2C-AABB-B74BEA95336F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712FD50D-D2DC-4A2C-AABB-B74BEA95336F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
