@@ -17,8 +17,18 @@ jobs:
   name: 'Build'
   runs-on: 'windows-latest'  
   steps:
+  
+  - run: echo "github ref  ${{ github.ref }}"
+
   - name: 'Checkout'
     uses: actions/checkout@v2
+
+  - name: Set output
+    id: vars
+    run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+
+  - name: Check output
+    run: echo ${{ steps.vars.outputs.short_ref }}
 
   - name: Exit if not on main branch
     if: endsWith(github.ref, 'main') == false
@@ -46,7 +56,7 @@ jobs:
   - name: 'Get version'
     id: get_version
     uses: battila7/get-version-action@v2
-
+   
   - name: 'Pack project'
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }} --include-symbols -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
