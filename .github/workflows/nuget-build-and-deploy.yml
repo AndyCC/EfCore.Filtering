@@ -22,17 +22,6 @@ jobs:
   - name: 'Checkout'
     uses: actions/checkout@v2
 
-  - name: Get Branch
-    run: |
-     raw=$(git branch -r --contains ${{ github.ref }})
-     branch=${raw/origin\/}
-     echo ::set-env name=BRANCH::$branch
-  - run: echo ${{ env.BRANCH }}
-
-  - name: Exit if not on main branch
-    if: env.BRANCH != 'main'
-    run: exit -1
-
   - name: 'Setup dot net 5 and 6'
     uses: 'actions/setup-dotnet@v1'
     with:
