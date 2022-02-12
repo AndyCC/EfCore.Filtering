@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -15,8 +16,9 @@ namespace EfCore.Filtering.Parts
         /// </summary>
         public TakePart()
         {
-            _queryableTake = typeof(Queryable).GetMethod("Take", BindingFlags.Public | BindingFlags.Static);
-            _enumerableTake = typeof(Enumerable).GetMethod("Take", BindingFlags.Public | BindingFlags.Static);
+            const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
+            _queryableTake = typeof(Queryable).GetGenericMethod("Take", bindingFlags, typeof(IQueryable<>), typeof(int));
+            _enumerableTake = typeof(Enumerable).GetGenericMethod("Take", bindingFlags, typeof(IEnumerable<>), typeof(int));
         }
 
         private readonly MethodInfo _queryableTake;

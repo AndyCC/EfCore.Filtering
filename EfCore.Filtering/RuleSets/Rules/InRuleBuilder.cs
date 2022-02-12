@@ -20,7 +20,7 @@ namespace EfCore.Filtering.RuleSets.Rules
         public InRuleBuilder()
         {
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
-            _containsMethod = typeof(Enumerable).GetGenericMethod("Contains", bindingFlags, new ParameterTypeInfo(typeof(IEnumerable<>)), new ParameterTypeInfo(null));
+            _containsMethod = typeof(Enumerable).GetGenericMethod("Contains", bindingFlags, typeof(IEnumerable<>), new ParameterTypeInfo(null));
         }
 
         private readonly MethodInfo _containsMethod;

@@ -22,15 +22,10 @@ namespace EfCore.Filtering.Parts
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
 
-            var queryableType = new ParameterTypeInfo(typeof(IQueryable<>));
-            var expressionFunc2Type = new ParameterTypeInfo(typeof(Expression<>), new ParameterTypeInfo(typeof(Func<,>)));
+            var expressionFunc2Type = new ParameterTypeInfo(typeof(Expression<>), typeof(Func<,>));
 
-            _whereQueryableMethod = typeof(Queryable).GetGenericMethod("Where", bindingFlags, queryableType, expressionFunc2Type);
-
-            var enumerableType = new ParameterTypeInfo(typeof(IEnumerable<>));
-            var func2Type = new ParameterTypeInfo(typeof(Func<,>));
-
-            _whereEnumerableMethod = typeof(Enumerable).GetGenericMethod("Where", bindingFlags, enumerableType, func2Type);
+            _whereQueryableMethod = typeof(Queryable).GetGenericMethod("Where", bindingFlags, typeof(IQueryable<>), expressionFunc2Type);
+            _whereEnumerableMethod = typeof(Enumerable).GetGenericMethod("Where", bindingFlags, typeof(IEnumerable<>), typeof(Func<,>));
         }
 
         private readonly IRuleSetExpressionBuilder _ruleSetExpressionBuilder;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
     <Company>Andrew Cryer</Company>
     <Copyright>Andrew Cryer</Copyright>
     <Description>Builds an Entity Framework Core query from a filter object. Core Library.</Description>
@@ -14,11 +14,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+    <ProjectReference Include="..\EfCore.Filtering.Client\EfCore.Filtering.Client.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EfCore.Filtering.Client\EfCore.Filtering.Client.csproj" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>6.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>5.0.14</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

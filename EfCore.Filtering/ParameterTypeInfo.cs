@@ -28,5 +28,14 @@ namespace EfCore.Filtering
         /// any inner types (e.g. Func<> or null if unknown)
         /// </summary>
         public ParameterTypeInfo[] InnerTypes { get; private set; }
+
+        /// <summary>
+        /// Converts a standard type to a ParameterTypeInfo that only has a root type
+        /// </summary>
+        /// <param name="rootType">ParameterTypeInfo</param>
+        public static implicit operator ParameterTypeInfo(Type rootType)
+        {
+            return new ParameterTypeInfo(rootType);
+        }
     }
 }

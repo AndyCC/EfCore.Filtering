@@ -29,10 +29,10 @@ namespace EfCore.Filtering.Parts
         {
             _includeFilteringParts = includeFilteringParts.OrderBy(x => x.ExecutionOrder).ToArray();
 
-            var queryableType = new ParameterTypeInfo(typeof(IQueryable<>));
-            var expressionFunc2Type = new ParameterTypeInfo(typeof(Expression<>), new ParameterTypeInfo(typeof(Func<,>)));
+            var queryableType = typeof(IQueryable<>);
+            var expressionFunc2Type = new ParameterTypeInfo(typeof(Expression<>), typeof(Func<,>));
             var includeQueryable2Type = new ParameterTypeInfo(typeof(IIncludableQueryable<,>), new ParameterTypeInfo(null), new ParameterTypeInfo(null));
-            var includeQueryable2WithEnumerableType = new ParameterTypeInfo(typeof(IIncludableQueryable<,>), new ParameterTypeInfo(null), new ParameterTypeInfo(typeof(IEnumerable<>)));
+            var includeQueryable2WithEnumerableType = new ParameterTypeInfo(typeof(IIncludableQueryable<,>), new ParameterTypeInfo(null), typeof(IEnumerable<>));
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
 

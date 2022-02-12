@@ -18,12 +18,12 @@ namespace EfCore.Filtering.Parts
         /// </summary>
         public OrderByPart()
         {
-            var queryableType = new ParameterTypeInfo(typeof(IQueryable<>));
+            var queryableType = typeof(IQueryable<>);
             var expressionFunc2Type = new ParameterTypeInfo(typeof(Expression<>), new ParameterTypeInfo(typeof(Func<,>)));
-            var orderedQueryableType = new ParameterTypeInfo(typeof(IOrderedQueryable<>));
-            var enumerableType = new ParameterTypeInfo(typeof(IEnumerable<>));
-            var orderedEnumerableType = new ParameterTypeInfo(typeof(IOrderedEnumerable<>));
-            var func2Type = new ParameterTypeInfo(typeof(Func<,>));
+            var orderedQueryableType = typeof(IOrderedQueryable<>);
+            var enumerableType = typeof(IEnumerable<>);
+            var orderedEnumerableType = typeof(IOrderedEnumerable<>);
+            var func2Type = typeof(Func<,>);
 
             const BindingFlags bindingFlags = BindingFlags.Static | BindingFlags.Public;
 

@@ -28,7 +28,7 @@ namespace EfCore.Filtering.RuleSets
             _ruleExpressionBuilders = ruleExpressionBuilders;
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
-            _anyMethod = typeof(Enumerable).GetGenericMethod("Any", bindingFlags, new ParameterTypeInfo(typeof(IEnumerable<>)), new ParameterTypeInfo(typeof(Func<,>)));
+            _anyMethod = typeof(Enumerable).GetGenericMethod("Any", bindingFlags, typeof(IEnumerable<>), typeof(Func<,>));
         }
 
         public RuleSetExpressionBuilder(IEnumerable<IRuleExpressionBuilder> ruleExpressionBuilders)
