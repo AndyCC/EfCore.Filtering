@@ -1,18 +1,16 @@
 name: nuget-build-and-deploy
-#manage releases with tags
 on:
  push:
   branches: 
     - main
   tags:
     - 'v*'
-#env vars
 env:
  PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
  CONFIGURATION: 'Release'
  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
  NUGET_SOURCE_URL: ''https://api.nuget.org/v1/index.json''
-#one job to build it all
+
 jobs:
  build:
   name: 'Build'
