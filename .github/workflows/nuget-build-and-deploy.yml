@@ -15,6 +15,7 @@ jobs:
  build_test_deploy:
   name: 'Deploy To Nuget'
   runs-on: 'windows-latest'  
+  environment: 'Deployment'
   steps:
 
   - name: 'Checkout'
@@ -44,4 +45,4 @@ jobs:
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }} -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
   - name: 'Publish package'
-    run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg --source '${{ env.NUGET_SOURCE_URL }}' --api-key ${{ secrets.NUGET_AUTH_TOKEN }} 
+    run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg --source ${{ env.NUGET_SOURCE_URL }} --api-key ${{ secrets.NUGET_AUTH_TOKEN }} 
