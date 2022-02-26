@@ -32,7 +32,7 @@ namespace EfCore.Filtering
         /// <summary>
         /// Converts a standard type to a ParameterTypeInfo that only has a root type
         /// </summary>
-        /// <param name="rootType">ParameterTypeInfo</param>
+        /// <param name="rootType">Type</param>
         public static implicit operator ParameterTypeInfo(Type rootType)
         {
             return new ParameterTypeInfo(rootType);
