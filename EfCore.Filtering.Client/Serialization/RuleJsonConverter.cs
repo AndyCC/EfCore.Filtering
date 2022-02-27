@@ -13,7 +13,7 @@ namespace EfCore.Filtering.Client.Serialization
                 reader.Read();
 
             if (reader.TokenType == JsonTokenType.StartObject)
-                return RuleJsonConverter.ReadRule(ref reader, typeToConvert, options);
+                return ReadRule(ref reader, typeToConvert, options);
             
             throw new JsonException("Rule - No Object");
         }

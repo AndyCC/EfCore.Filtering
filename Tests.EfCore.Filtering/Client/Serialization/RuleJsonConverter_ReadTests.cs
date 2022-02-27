@@ -1,13 +1,12 @@
 ﻿using EfCore.Filtering.Client;
 using EfCore.Filtering.Client.Serialization;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
 namespace Tests.EfCore.Filtering.Client.Serialization
 {
-    public class RuleConverter_ReadTests
+    public class RuleJsonConverter_ReadTests
     {
         [Test]
         [TestCaseSource(nameof(Data_Values))]

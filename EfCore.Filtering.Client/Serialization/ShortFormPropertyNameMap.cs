@@ -19,6 +19,13 @@ namespace EfCore.Filtering.Client.Serialization
             { "V", nameof(Rule.Value) },
         };
 
+        private static Dictionary<string, string> RuleSetMap = new Dictionary<string, string>
+        {
+            { "R", nameof(RuleSet.Rules) },
+            { "L", nameof(RuleSet.LogicalOperator) },
+            { "S", nameof(RuleSet.RuleSets) },
+        };
+
         public static string GetLongFormPropertyName<TTargetType>(string propertyName)
         {
             if (propertyName.Length > 1)
@@ -28,6 +35,7 @@ namespace EfCore.Filtering.Client.Serialization
             {
                 nameof(Filter) => FilterMap,
                 nameof(Rule) => RuleMap,
+                nameof(RuleSet) => RuleSetMap,
                 _ => throw new JsonException($"{typeof(TTargetType).Name} does not have a property map")
             };
 

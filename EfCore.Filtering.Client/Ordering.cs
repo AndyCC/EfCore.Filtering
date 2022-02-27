@@ -8,10 +8,10 @@
         /// <summary>
         /// Ascending
         /// </summary>
-        public static string ASC { get { return "asc"; } }
+        public const string ASC = "asc"; 
         /// <summary>
         /// Descending
         /// </summary>
-        public static string DESC { get { return "desc"; } }
+        public const string DESC = "desc"; 
     }
 }
