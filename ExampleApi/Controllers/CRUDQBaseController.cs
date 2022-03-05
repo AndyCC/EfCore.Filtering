@@ -26,8 +26,8 @@ namespace ExampleApi.Controllers
 
         protected ShoppingDbContext DbContext { get; private set; }
         protected IQueryBuilder QueryBuilder { get; private set; }
-        private Func<ShoppingDbContext, IQueryable<TEntity>> _dbContextProperty;
-        private Func<TEntity, TId> _idFunc;
+        private readonly Func<ShoppingDbContext, IQueryable<TEntity>> _dbContextProperty;
+        private readonly Func<TEntity, TId> _idFunc;
 
         // GET: api/<Controller>
         [HttpGet]

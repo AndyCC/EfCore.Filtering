@@ -1,4 +1,5 @@
 ﻿using EfCore.Filtering.Client;
+using EfCore.Filtering.Client.Serialization;
 using EfCore.Filtering.Paths;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
@@ -29,9 +30,16 @@ namespace EfCore.Filtering.Mvc
         public FilterModelBinder(FilterModelBinderContext context)
         {
             _context = context;
+            _jsonSerializerOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+            _jsonSerializerOptions.AddFilterConvertors();
         }
 
         private const string queryStringKey = "filter";
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         /// <summary>
         /// Binds the model
@@ -77,7 +85,7 @@ namespace EfCore.Filtering.Mvc
         /// </summary>
         /// <param name="bindingContext">ModelBindingContext</param>
         /// <returns>Filter</returns>
-        private static Filter BindFromQueryStringJson(ModelBindingContext bindingContext)
+        private Filter BindFromQueryStringJson(ModelBindingContext bindingContext)
         {
             var json = bindingContext.ActionContext.HttpContext.Request.Query[queryStringKey];
             return ConvertJsonToFilter(json, bindingContext.ModelType);
@@ -88,7 +96,7 @@ namespace EfCore.Filtering.Mvc
         /// </summary>
         /// <param name="bindingContext">ModelBindingContext</param>
         /// <returns>Task<Filter></Filter></returns>
-        private static async Task<Filter> BindFromBody(ModelBindingContext bindingContext)
+        private async Task<Filter> BindFromBody(ModelBindingContext bindingContext)
         {
             var json = string.Empty;
 
@@ -106,21 +114,9 @@ namespace EfCore.Filtering.Mvc
         /// <param name="json">json to convert</param>
         /// <param name="filterType">Type that derives from Filter</param>
         /// <returns></returns>
-        private static Filter ConvertJsonToFilter(string json, Type filterType)
+        private Filter ConvertJsonToFilter(string json, Type filterType)
         {
-            var jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                ReferenceHandler = ReferenceHandler.Preserve
-            };
-
-            var shortFilter = JsonSerializer.Deserialize<ShortFilter>(json, jsonOptions);
-            var filter = shortFilter.IsValid() ? shortFilter.ToFilter(filterType) : null;
-
-            if (filter == null)
-                filter = (Filter)JsonSerializer.Deserialize(json, filterType, jsonOptions);
-
-            return filter;
+            return (Filter)JsonSerializer.Deserialize(json, filterType, _jsonSerializerOptions);
         }
 
         /// <summary>

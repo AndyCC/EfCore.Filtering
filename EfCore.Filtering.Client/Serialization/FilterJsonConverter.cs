@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -8,7 +7,11 @@ namespace EfCore.Filtering.Client.Serialization
 {
     public class FilterJsonConverter : JsonConverter<Filter>
     {
-        //TODO: this needs a path walker to complete serialization
+        public override bool CanConvert(Type typeToConvert)
+        {
+            return typeToConvert.IsAssignableTo(typeof(Filter));
+        }
+
         public override Filter Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.None)
@@ -17,9 +20,7 @@ namespace EfCore.Filtering.Client.Serialization
             if (reader.TokenType != JsonTokenType.StartObject)
                 throw new JsonException("Filter - Object does not start");
 
-            options.AddFilterConvertors();
-
-            var filter = new Filter();
+            var filter = (Filter)Activator.CreateInstance(typeToConvert);
 
             PropertyInfo currentProperyInfo = null;
 

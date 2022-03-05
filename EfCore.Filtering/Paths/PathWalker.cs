@@ -41,7 +41,7 @@ namespace EfCore.Filtering.Paths
         /// <summary>
         /// List of unique paths found
         /// SourceType => FullNavigationPath => Path Object
-        /// SourceType is the type of the object the navigation path is applied to
+        /// SourceType is the type of the object the navigation path is applied to. e.g. in the path "Price" if "Price" is on a "Product" the "Product" would be the source type
         /// </summary>
         private IDictionary<Type, IDictionary<string, Path>> Paths { get; set; } = new Dictionary<Type, IDictionary<string, Path>>();
 
