@@ -22,7 +22,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleJsonConverter();
             var jsonReader = json.GetJsonReader();
             
-            var rule = converter.Read(ref jsonReader, typeof(Rule), new JsonSerializerOptions());
+            var rule = converter.Read(ref jsonReader, typeof(Rule), SerializationTestHelpers.SerializeOptions);
             Assert.IsNotNull(rule);
             Assert.That(rule.Path, Is.EqualTo(expectedPath));
 
@@ -52,7 +52,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var rule = converter.Read(ref jsonReader, typeof(Rule), new JsonSerializerOptions());
+            var rule = converter.Read(ref jsonReader, typeof(Rule), SerializationTestHelpers.SerializeOptions);
             Assert.IsNotNull(rule);
             Assert.That(rule.Path, Is.EqualTo(expectedPath));
 
@@ -93,7 +93,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var rule = converter.Read(ref jsonReader, typeof(Rule), new JsonSerializerOptions());
+            var rule = converter.Read(ref jsonReader, typeof(Rule), SerializationTestHelpers.SerializeOptions);
             Assert.IsNotNull(rule);
             Assert.That(rule.Path, Is.EqualTo(expectedPath));
             Assert.That(rule.ComparisonOperator, Is.EqualTo(expectedComparisonOp));
@@ -111,7 +111,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var rule = converter.Read(ref jsonReader, typeof(Rule), new JsonSerializerOptions());
+            var rule = converter.Read(ref jsonReader, typeof(Rule), SerializationTestHelpers.SerializeOptions);
             Assert.IsNotNull(rule);
             Assert.That(rule.Path, Is.EqualTo(expectedPath));
             Assert.That(rule.ComparisonOperator, Is.EqualTo(expectedComparisonOp));
@@ -149,7 +149,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var rule = converter.Read(ref jsonReader, typeof(Rule), new JsonSerializerOptions());
+            var rule = converter.Read(ref jsonReader, typeof(Rule), SerializationTestHelpers.SerializeOptions);
             Assert.IsNotNull(rule);
             Assert.That(rule.Path, Is.EqualTo(expectedPath));
             Assert.IsNotNull(rule.Value);
@@ -170,7 +170,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var rule = converter.Read(ref jsonReader, typeof(Rule), new JsonSerializerOptions());
+            var rule = converter.Read(ref jsonReader, typeof(Rule), SerializationTestHelpers.SerializeOptions);
             Assert.IsNotNull(rule);
             Assert.That(rule.Path, Is.EqualTo(expectedPath));
             Assert.IsNotNull(rule.Value);

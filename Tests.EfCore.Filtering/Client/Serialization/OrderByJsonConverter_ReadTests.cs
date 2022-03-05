@@ -15,7 +15,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new OrderByJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var orderBy = converter.Read(ref jsonReader, typeof(OrderBy), new JsonSerializerOptions());
+            var orderBy = converter.Read(ref jsonReader, typeof(OrderBy), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(orderBy);
             Assert.That(orderBy.Order, Is.EqualTo(Ordering.ASC));
@@ -30,7 +30,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new OrderByJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var orderBy = converter.Read(ref jsonReader, typeof(OrderBy), new JsonSerializerOptions());
+            var orderBy = converter.Read(ref jsonReader, typeof(OrderBy), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(orderBy);
             Assert.That(orderBy.Order, Is.EqualTo(Ordering.DESC));
@@ -47,7 +47,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new OrderByJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var orderBy = converter.Read(ref jsonReader, typeof(OrderBy), new JsonSerializerOptions());
+            var orderBy = converter.Read(ref jsonReader, typeof(OrderBy), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(orderBy);
             Assert.That(orderBy.Order, Is.EqualTo(expectedOrder));

@@ -21,7 +21,7 @@ namespace EfCore.Filtering.Client.Serialization
         private static Rule ReadRule(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var rule = new Rule();
-            PropertyInfo currentProperyInfo = null;
+            PropertyInfo currentPropertyInfo = null;
 
             while (reader.Read())
             {
@@ -31,14 +31,14 @@ namespace EfCore.Filtering.Client.Serialization
                 if (reader.TokenType == JsonTokenType.PropertyName)
                 {
                     var actualPropertyName = ShortFormPropertyNameMap.GetLongFormPropertyName<Rule>(reader.GetString());
-                    currentProperyInfo = typeToConvert.GetProperty(actualPropertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
+                    currentPropertyInfo = typeToConvert.GetProperty(actualPropertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
                 }
                 else
                 {
-                    if (currentProperyInfo.Name == nameof(Rule.Value))
+                    if (currentPropertyInfo.Name == nameof(Rule.Value))
                         rule.Value = JsonSerializer.Deserialize<object>(ref reader, options);
                     else if (reader.TokenType == JsonTokenType.String)
-                        currentProperyInfo.SetValue(rule, reader.GetString());
+                        currentPropertyInfo.SetValue(rule, reader.GetString());
                 }
             }
 

@@ -7,7 +7,6 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 {
     public class FilterJsonConverter_ReadTests
     {
-
         [Test]
         public void ThrowJsonExceptionWhenSuppliedJsonDoesNotStartWithStartObjectToken()
         {
@@ -18,27 +17,11 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var ex = Assert.Throws<JsonException>(() =>
             {
                 var jsonReader = json.GetJsonReader();
-                converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+                converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
             });
 
             Assert.That(ex.Message, Is.EqualTo("Filter - Object does not start"));
         }
-
-        //[Test]
-        //public void ThrowJsonExceptionWhenSuppliedJsonDoesNotEndWithEndObjectToken()
-        //{
-        //    const string json = @"{""T"":null";
-
-        //    var converter = new FilterJsonSerializer();
-
-        //    var ex = Assert.Throws<JsonException>(() =>
-        //    {
-        //        var jsonReader = json.GetJsonReader();
-        //        converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
-        //    });
-
-        //    Assert.That(ex.Message, Is.EqualTo("Filter - Object does not end"));
-        //}
 
         [Test]
         public void ShortForm_ThrowJsonExceptionWhenPropertyNotFound()
@@ -48,16 +31,13 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
 
-            var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
-
             var ex = Assert.Throws<JsonException>(() =>
             {
                 var jsonReader = json.GetJsonReader();
-                converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+                converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
             });
 
-            Assert.That(ex.Message, Is.EqualTo("Z property can not be mapped"));
+            Assert.That(ex.Message, Is.EqualTo("Z property can not be mapped on type EfCore.Filtering.Client.Filter"));
         }
 
         [Test]
@@ -69,7 +49,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new FilterJsonConverter();
 
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.That(filter.Take, Is.EqualTo(expectedInclude));
         }
@@ -82,7 +62,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new FilterJsonConverter();
 
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNull(filter.Take);
         }
@@ -95,7 +75,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.That(filter.Take, Is.EqualTo(expectedInclude));
         }
@@ -108,7 +88,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new FilterJsonConverter();
 
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNull(filter.Take);
         }
@@ -121,7 +101,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.That(filter.Take, Is.EqualTo(expectedInclude));
         }
@@ -134,7 +114,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.That(filter.Take, Is.EqualTo(expectedInclude));
         }
@@ -147,7 +127,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.That(filter.Skip, Is.EqualTo(expectedSkip));
         }
@@ -160,7 +140,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.That(filter.Skip, Is.EqualTo(expectedSkip));
         }
@@ -173,7 +153,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter.Ordering);
             Assert.That(filter.Ordering.Count, Is.EqualTo(1));
@@ -189,7 +169,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter.Ordering);
             Assert.That(filter.Ordering.Count, Is.EqualTo(1));
@@ -207,7 +187,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter.Ordering);
             Assert.That(filter.Ordering.Count, Is.EqualTo(1));
@@ -224,7 +204,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter.Ordering);
             Assert.That(filter.Ordering.Count, Is.EqualTo(2));
@@ -245,7 +225,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter.Ordering);
             Assert.That(filter.Ordering.Count, Is.EqualTo(2));
@@ -274,7 +254,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter);
             Assert.IsNotNull(filter.WhereClause);
@@ -288,7 +268,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
         }
 
         [Test]
-        public void ShortForm_ItReadsWhereWithArrayValue()
+        public void LongForm_ItReadsWhere()
         {
             const string propertyPath = "Product.Name";
             const string comparisonEq = "eq";
@@ -306,7 +286,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
 
             var converter = new FilterJsonConverter();
             var jsonReader = json.GetJsonReader();
-            var filter = converter.Read(ref jsonReader, typeof(Filter), new JsonSerializerOptions());
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(filter);
             Assert.IsNotNull(filter.WhereClause);
@@ -320,7 +300,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
         }
 
         [Test]
-        public void LongForm_ItReadsWhere()
+        public void ShortForm_ItReadsWhereWithArrayValue()
         {
             Assert.Inconclusive();
         }
@@ -334,73 +314,115 @@ namespace Tests.EfCore.Filtering.Client.Serialization
         [Test]
         public void ShortForm_ItReadsWhereWithMultipleRules()
         {
-            Assert.Inconclusive();
-        }
+            const string propertyPath = "Product.Name";
+            const string comparisonEq = "eq";
+            const string value = "abc";
 
-        [Test]
-        public void LongForm_ItReadsWhereWithMultipleRules()
-        {
-            Assert.Inconclusive();
-        }
+            const string propertyPath2 = "Product.Listings.AnotherValue";
+            const string comparisonEq2 = "eq";
+            const int value2 = 3;
 
-        [Test]
-        public void ShortForm_ItReadsWhereWithNestedRuleSets()
-        {
-            Assert.Inconclusive();
-        }
+            string json = $@"{{""W"": 
+                                {{
+                                    ""R"":[{{
+                                        ""P"": ""{propertyPath}"",
+                                        ""C"": ""{comparisonEq}"",
+                                        ""V"": ""{value}""
+                                    }},{{
+                                        ""P"": ""{propertyPath2}"",
+                                        ""C"": ""{comparisonEq2}"",
+                                        ""V"": {value2}
+                                    }}]
+                                }}
+                              }}";
 
-        [Test]
-        public void LongForm_ItReadsWhereWithNestedRuleSets()
-        {
-            Assert.Inconclusive();
-        }
+            var converter = new FilterJsonConverter();
+            var jsonReader = json.GetJsonReader();
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
 
-        [Test]
-        public void ShortForm_ItReadsWhereWithAVeryComplexWhereClause()
-        {
-            Assert.Inconclusive();
-        }
+            Assert.IsNotNull(filter);
+            Assert.IsNotNull(filter.WhereClause);
+            Assert.IsNotNull(filter.WhereClause.Rules);
+            Assert.That(filter.WhereClause.Rules.Count, Is.EqualTo(2));
 
-        [Test]
-        public void LongForm_ItReadsWhereWithAVeryComplexWhereClause()
-        {
-            Assert.Inconclusive();
-        }
+            var rule = filter.WhereClause.Rules[0];
+            Assert.That(rule.Path, Is.EqualTo(propertyPath));
+            Assert.That(rule.ComparisonOperator, Is.EqualTo(comparisonEq));
+            Assert.That(rule.Value, Is.EqualTo(value));
 
+            rule = filter.WhereClause.Rules[1];
+            Assert.That(rule.Path, Is.EqualTo(propertyPath2));
+            Assert.That(rule.ComparisonOperator, Is.EqualTo(comparisonEq2));
+            Assert.That(rule.Value, Is.EqualTo(value2));
+        }
+     
         [Test]
         public void ShortForm_ItReadsInclude()
         {
-            Assert.Inconclusive();
+            const string expectedPath = "ShopListings";
+            string json = $"{{\"i\":[{{\"p\":\"{expectedPath}\"}}]}}";
+
+            var converter = new FilterJsonConverter();
+            var jsonReader = json.GetJsonReader();
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
+
+            Assert.IsNotNull(filter);
+            Assert.IsNotNull(filter.Includes);
+            Assert.That(filter.Includes.Count, Is.EqualTo(1));
+            Assert.That(filter.Includes[0].Path, Is.EqualTo(expectedPath));               
         }
 
         [Test]
         public void LongForm_ItReadsInclude()
         {
-            Assert.Inconclusive();
+            const string expectedPath = "ShopListings";
+            string json = $"{{\"includes\":[{{\"path\":\"{expectedPath}\"}}]}}";
+
+            var converter = new FilterJsonConverter();
+            var jsonReader = json.GetJsonReader();
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
+
+            Assert.IsNotNull(filter);
+            Assert.IsNotNull(filter.Includes);
+            Assert.That(filter.Includes.Count, Is.EqualTo(1));
+            Assert.That(filter.Includes[0].Path, Is.EqualTo(expectedPath));
         }
 
         [Test]
-        public void ShortForm_ItReadsIncludeWithFilter()
+        public void ShortForm_ItReadsMultipleInclude()
         {
-            Assert.Inconclusive();
+            const string expectedPath1 = "Shop";
+            const string expectedPath2 = "Product";
+            string json = $"{{\"i\":[{{\"p\":\"{expectedPath1}\"}}, {{\"p\":\"{expectedPath2}\"}}]}}";
+
+            var converter = new FilterJsonConverter();
+            var jsonReader = json.GetJsonReader();
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
+
+            Assert.IsNotNull(filter);
+            Assert.IsNotNull(filter.Includes);
+            Assert.That(filter.Includes.Count, Is.EqualTo(2));
+            Assert.That(filter.Includes[0].Path, Is.EqualTo(expectedPath1));
+            Assert.That(filter.Includes[1].Path, Is.EqualTo(expectedPath2));
         }
 
         [Test]
-        public void LongForm_ItReadsIncludeWithFilter()
+        public void LongForm_ItReadsMultipleInclude()
         {
-            Assert.Inconclusive();
-        }
 
-        [Test]
-        public void ShortForm_ItReadsIncludeWithFilterWithAVeryComplexWhereClause()
-        {
-            Assert.Inconclusive();
-        }
+            const string expectedPath1 = "Shop";
+            const string expectedPath2 = "Product";
+            string json = $"{{\"includes\":[{{\"path\":\"{expectedPath1}\"}}, {{\"path\":\"{expectedPath2}\"}}]}}";
 
-        [Test]
-        public void LongForm_ItReadsIncludeWithFilterWithAVeryComplexWhereClause()
-        {
-            Assert.Inconclusive();
+            var converter = new FilterJsonConverter();
+            var jsonReader = json.GetJsonReader();
+            var filter = converter.Read(ref jsonReader, typeof(Filter), SerializationTestHelpers.SerializeOptions);
+
+            Assert.IsNotNull(filter);
+            Assert.IsNotNull(filter.Includes);
+            Assert.That(filter.Includes.Count, Is.EqualTo(2));
+            Assert.That(filter.Includes[0].Path, Is.EqualTo(expectedPath1));
+            Assert.That(filter.Includes[1].Path, Is.EqualTo(expectedPath2));
         }
     }
 }

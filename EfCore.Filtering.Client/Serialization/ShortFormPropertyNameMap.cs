@@ -5,25 +5,33 @@ namespace EfCore.Filtering.Client.Serialization
 {
     internal static class ShortFormPropertyNameMap
     {
-        private static Dictionary<string, string> FilterMap = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> FilterMap = new()
         {
             { "T", nameof(Filter.Take)},
             { "S", nameof(Filter.Skip)},
-            { "O", nameof(Filter.Ordering)}
+            { "O", nameof(Filter.Ordering)},
+            { "W", nameof(Filter.WhereClause)},
+            { "I", nameof(Filter.Includes)}
         };
 
-        private static Dictionary<string, string> RuleMap = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> RuleMap = new()
         {
             { "P", nameof(Rule.Path) },
             { "C", nameof(Rule.ComparisonOperator) },
             { "V", nameof(Rule.Value) },
         };
 
-        private static Dictionary<string, string> RuleSetMap = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> RuleSetMap = new()
         {
             { "R", nameof(RuleSet.Rules) },
             { "L", nameof(RuleSet.LogicalOperator) },
             { "S", nameof(RuleSet.RuleSets) },
+        };
+
+        private static readonly Dictionary<string, string> IncludeMap = new()
+        {
+            { "P", nameof(Include.Path) },
+            { "F", nameof(Include.Filter) }
         };
 
         public static string GetLongFormPropertyName<TTargetType>(string propertyName)
@@ -36,6 +44,7 @@ namespace EfCore.Filtering.Client.Serialization
                 nameof(Filter) => FilterMap,
                 nameof(Rule) => RuleMap,
                 nameof(RuleSet) => RuleSetMap,
+                nameof(Include) => IncludeMap,
                 _ => throw new JsonException($"{typeof(TTargetType).Name} does not have a property map")
             };
 

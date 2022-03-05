@@ -19,11 +19,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleSetJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
-            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(ruleSet);
             Assert.IsNotNull(ruleSet.Rules);
@@ -46,11 +42,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleSetJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
-            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(ruleSet);
             Assert.IsNotNull(ruleSet.Rules);
@@ -88,11 +80,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleSetJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
-            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(ruleSet);
             Assert.That(ruleSet.LogicalOperator, Is.EqualTo(expectedLogicalOperator));
@@ -135,11 +123,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleSetJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
-            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(ruleSet);
             Assert.That(ruleSet.LogicalOperator, Is.EqualTo(expectedLogicalOperator));
@@ -177,15 +161,11 @@ namespace Tests.EfCore.Filtering.Client.Serialization
                              }}]
                            }}";
 
-
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-
             var exception = Assert.Throws<JsonException>(() =>
             {
                 var converter = new RuleSetJsonConverter();
                 var jsonReader = json.GetJsonReader();
-                converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+                converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
             });
 
             Assert.That(exception.Message, Is.EqualTo("Unsuported Logical Operator N"));
@@ -213,16 +193,11 @@ namespace Tests.EfCore.Filtering.Client.Serialization
                              }}]
                            }}";
 
-
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
             var exception = Assert.Throws<JsonException>(() =>
             {
                 var converter = new RuleSetJsonConverter();
                 var jsonReader = json.GetJsonReader();
-                converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+                converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
             });
 
             Assert.That(exception.Message, Is.EqualTo("Unsuported Logical Operator N"));
@@ -266,11 +241,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleSetJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
-            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(ruleSet);
             Assert.That(ruleSet.LogicalOperator, Is.EqualTo(expectedLogicalOperator1));
@@ -334,11 +305,7 @@ namespace Tests.EfCore.Filtering.Client.Serialization
             var converter = new RuleSetJsonConverter();
             var jsonReader = json.GetJsonReader();
 
-            var serializationOptions = new JsonSerializerOptions();
-            serializationOptions.Converters.Add(new RuleJsonConverter());
-            serializationOptions.Converters.Add(new RuleSetJsonConverter());
-
-            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), serializationOptions);
+            var ruleSet = converter.Read(ref jsonReader, typeof(RuleSet), SerializationTestHelpers.SerializeOptions);
 
             Assert.IsNotNull(ruleSet);
             Assert.That(ruleSet.LogicalOperator, Is.EqualTo(expectedLogicalOperator1));

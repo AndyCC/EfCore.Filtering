@@ -17,7 +17,7 @@ namespace EfCore.Filtering.Client.Serialization
             if (reader.TokenType != JsonTokenType.StartObject)
                 throw new JsonException("Filter - Object does not start");
 
-            AddRequiredConvertors(options);
+            options.AddFilterConvertors();
 
             var filter = new Filter();
 
@@ -48,17 +48,6 @@ namespace EfCore.Filtering.Client.Serialization
 
             throw new JsonException("Filter - Object does not end");
         }        
-
-        private static void AddRequiredConvertors(JsonSerializerOptions options)
-        {
-            AddConvertor(options, new OrderByJsonConverter());
-        }
-
-        private static void AddConvertor(JsonSerializerOptions options, OrderByJsonConverter orderBySerializer)
-        {
-            if (options.Converters.All(x => x.GetType() != orderBySerializer.GetType()))
-                options.Converters.Add(orderBySerializer);
-        }
 
         public override void Write(Utf8JsonWriter writer, Filter value, JsonSerializerOptions options)
         {
