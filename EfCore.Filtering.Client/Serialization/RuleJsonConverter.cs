@@ -1,5 +1,6 @@
-﻿using System;
-using System.Reflection;
+﻿using EfCore.Filtering.Client.Serialization.Common;
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -7,42 +8,38 @@ namespace EfCore.Filtering.Client.Serialization
 {
     public class RuleJsonConverter : JsonConverter<Rule>
     {
+        static RuleJsonConverter()
+        {
+            var propertyMap = new Dictionary<string, string>
+            {
+                { "P", nameof(Rule.Path) },
+                { "C", nameof(Rule.ComparisonOperator) },
+                { "V", nameof(Rule.Value) },
+            };
+
+            var propertyReadInterceptors = new Dictionary<string, InterceptPropertyRead<Rule>>
+            {
+                {nameof(Rule.Value), SetValueFromObject}
+            };
+
+            ReaderOptions = new ReaderOptions<Rule>(propertyMap, propertyReadInterceptors);
+        }
+
+        private static readonly ReaderOptions<Rule> ReaderOptions;
         public override Rule Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.None)
                 reader.Read();
 
             if (reader.TokenType == JsonTokenType.StartObject)
-                return ReadRule(ref reader, typeToConvert, options);
+                return Reader.Read<Rule>(ref reader, options, ReaderOptions);
             
             throw new JsonException("Rule - No Object");
         }
 
-        private static Rule ReadRule(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        private static void SetValueFromObject(Rule rule, ref Utf8JsonReader reader, JsonSerializerOptions options)
         {
-            var rule = new Rule();
-            PropertyInfo currentPropertyInfo = null;
-
-            while (reader.Read())
-            {
-                if (reader.TokenType == JsonTokenType.EndObject)
-                    return rule;
-
-                if (reader.TokenType == JsonTokenType.PropertyName)
-                {
-                    var actualPropertyName = ShortFormPropertyNameMap.GetLongFormPropertyName<Rule>(reader.GetString());
-                    currentPropertyInfo = typeToConvert.GetProperty(actualPropertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
-                }
-                else
-                {
-                    if (currentPropertyInfo.Name == nameof(Rule.Value))
-                        rule.Value = JsonSerializer.Deserialize<object>(ref reader, options);
-                    else if (reader.TokenType == JsonTokenType.String)
-                        currentPropertyInfo.SetValue(rule, reader.GetString());
-                }
-            }
-
-            throw new JsonException("Rule - No End Of Object");
+            rule.Value = JsonSerializer.Deserialize<object>(ref reader, options);
         }
 
         public override void Write(Utf8JsonWriter writer, Rule value, JsonSerializerOptions options)
