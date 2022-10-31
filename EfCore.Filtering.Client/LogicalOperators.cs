@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EfCore.Filtering.Client
+﻿namespace EfCore.Filtering.Client
 {
     /// <summary>
     /// Logical operators allowed by the ruleset
@@ -14,11 +8,11 @@ namespace EfCore.Filtering.Client
         /// <summary>
         /// AND
         /// </summary>
-        public static string AND { get { return "AND"; } }
+        public const string AND = "AND";
 
         /// <summary>
         /// OR
         /// </summary>
-        public static string OR { get { return "OR"; } }
+        public const string OR = "OR"; 
     }
 }

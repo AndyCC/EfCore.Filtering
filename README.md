@@ -11,7 +11,7 @@ Api endpoints can be set up to recieve the filter via a GET endpoint using pure 
 
 ## Setup
 
-In `Startup.cs` in the `ConfigureServices` method add the model binder used to bind to the Filter. This requires the JsonSerializer to have the `ReferenceHandler` set to preserve.
+In `Startup.cs` in the `ConfigureServices` method add the model binder used to bind to the Filter. This requires the JsonSerializer to have the `ReferenceHandler` set to preserve. The ReferenceHandler.Preserve allows cyclic dependencies to be serialized, if the model being returned from the API does not contain cyclic dependencies then the reference handler setting is not required. 
 
 ```c#
 services.AddControllers(opts =>
