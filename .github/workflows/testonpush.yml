@@ -1,0 +1,35 @@
+name: test-on-push
+on: push
+    
+env:
+  SOLUTION_NAME: 'EFCore.Filtering.sln'
+  PROJECT_PATH: 'EfCore.Filtering.Mvc/EfCore.Filtering.Mvc.csproj'
+  TEST_PROJECT_PATH: 'Tests.EfCore.Filtering/Tests.EfCore.Filtering.csproj'
+  CONFIGURATION: 'Debug'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
+
+jobs:
+ build_test_deploy:
+  name: 'Test on push'
+  runs-on: 'windows-latest'  
+  steps:
+
+  - name: 'Checkout'
+    uses: actions/checkout@v2
+
+  - name: 'Setup dot net 5 and 6'
+    uses: 'actions/setup-dotnet@v1'
+    with:
+     dotnet-version: |
+      5.x
+      6.x
+      
+  - name: 'Restore packages'
+    run: dotnet restore ${{ env.SOLUTION_NAME }}
+        
+  - name: Build Solution
+    run: dotnet build ${{ env.SOLUTION_NAME }} --no-restore --configuration ${{ env.CONFIGURATION }}
+
+  - name: Tests
+    run: dotnet test ${{ env.TEST_PROJECT_PATH }} --no-build --no-restore
