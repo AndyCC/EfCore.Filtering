@@ -1,8 +1,8 @@
-name: test-on-push
+name: test-on-pr
 on:
- push:
+ pull_request:
     branches:
-      - "**"
+      - main
     
 env:
   SOLUTION_NAME: 'EFCore.Filtering.sln'
@@ -14,7 +14,7 @@ env:
 
 jobs:
  build_test_deploy:
-  name: 'Test on push'
+  name: 'Run Tests On PR to main'
   runs-on: 'windows-latest'  
   steps:
 
