@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EfCore.Filtering.Client
 {
@@ -31,6 +30,11 @@ namespace EfCore.Filtering.Client
         }
 
         /// <summary>
+        /// List of rules
+        /// </summary>
+        public List<Rule> Rules { get; set; } = new List<Rule>();
+
+        /// <summary>
         /// List of rule sets
         /// </summary>
         /// <remarks>
@@ -40,10 +44,6 @@ namespace EfCore.Filtering.Client
         /// </remarks>
         public List<RuleSet> RuleSets { get; set; } = new List<RuleSet>();
 
-        /// <summary>
-        /// List of rules
-        /// </summary>
-        public List<Rule> Rules { get; set; } = new List<Rule>();
 
         /// <summary>
         /// Determines if this ruleset has rules or rulesets

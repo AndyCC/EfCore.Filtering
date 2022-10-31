@@ -32,17 +32,17 @@ namespace EfCore.Filtering.Mvc
             if (filter.HasWhereClauseRules)
                 RuleValuesToActualType(filter.WhereClause, sourceType, pathWalker);
 
-            if (filter.Includes != null)
-            {
-                foreach (var includeFilter in filter.Includes)
-                {
-                    var propertyType = pathWalker.GetFinalTypeOfFinalPropertyInPath(sourceType, includeFilter.Path);
+            if (filter.Includes == null)            
+                return;            
 
-                    if (includeFilter.Filter != null)
-                    {
-                        propertyType = propertyType.GetUnderlyingTypeIfGenericAndEnumerable() ?? propertyType;
-                        includeFilter.Filter.EnsureRuleValuesAreCorrectType(propertyType, pathWalker);
-                    }
+            foreach (var includeFilter in filter.Includes)
+            {
+                var propertyType = pathWalker.GetFinalTypeOfFinalPropertyInPath(sourceType, includeFilter.Path);
+
+                if (includeFilter.Filter != null)
+                {
+                    propertyType = propertyType.GetUnderlyingTypeIfGenericAndEnumerable() ?? propertyType;
+                    includeFilter.Filter.EnsureRuleValuesAreCorrectType(propertyType, pathWalker);
                 }
             }
         }

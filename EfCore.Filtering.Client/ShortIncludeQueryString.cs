@@ -13,7 +13,7 @@
         /// <summary>
         /// Filter
         /// </summary>
-        public ShortFilter F { get; set; }
+        public ShortFilterQueryString F { get; set; }
 
         /// <summary>
         /// Creates an Include
