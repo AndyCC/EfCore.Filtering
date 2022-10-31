@@ -70,13 +70,13 @@ try
     jsonDeSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     jsonDeSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
-    var result = await response.Content.ReadFromJsonAsync<List<ShopProductListing>>(jsonDeSerializerOptions);
+    var results = await response.Content.ReadFromJsonAsync<List<ShopProductListing>>(jsonDeSerializerOptions);
 
-    if (result == null)
+    if (results == null)
         throw new Exception("null results");
 
 
-    foreach (var listing in result)
+    foreach (var listing in results)
     {
         Console.WriteLine($"{listing.Id}: Product - {listing.Product.Name}, Shop - {listing.Shop.Name}, Price - {listing.Price:C}");
     }
