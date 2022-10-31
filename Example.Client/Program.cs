@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EfCore.Filtering.Client;
 using EfCore.Filtering.Client.Serialization;
-using Example.Client;
 using ExampleApi.Data.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
